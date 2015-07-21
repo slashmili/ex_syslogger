@@ -1,4 +1,5 @@
 defmodule ExSyslog do
+  @moduledoc false
   use GenEvent
 
   @default_pattern "\n$date $time [$level] $levelpad$node $metadata $message\n"
