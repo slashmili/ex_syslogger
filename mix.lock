@@ -1,0 +1,1 @@
+%{"syslog": {:hex, :syslog, "1.0.2"}}
