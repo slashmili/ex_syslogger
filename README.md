@@ -18,8 +18,7 @@ Add `:exsyslog` and `:syslog` as a dependency in your `mix.exs` file
 
 defp deps do
   [
-    {:exsyslog, "~> 0.0.1"},
-    {:syslog, github: "Vagabond/erlang-syslog", tag: "1.0.3"}
+    {:exsyslog, "~> 0.0.1"}
   ]
 end
 ```
@@ -68,6 +67,29 @@ config :logger, :exsyslog_debug,
 * __facility__ (optional): syslog facility to be used. It defaults to `:local0`. More documentation on [erlang-syslog](https://github.com/Vagabond/erlang-syslog/#syslogopenident-logopt-facility---ok-port)
 * __option__ (optional): syslog option to be used. It defaults to `:ndelay`. More documentation on [erlang-syslog](https://github.com/Vagabond/erlang-syslog/#syslogopenident-logopt-facility---ok-port)
 
+## Try it
+
+In another shell:
+
+```
+$ tail -f /var/log/syslog
+```
+
+(Mac users)
+```
+$ tail -f /var/log/system.log
+```
+__NOTE__ Mac has a *funny* syslog. Your info logs might not show up. You'll need to configure your Mac syslog.
+
+```
+Erlang/OTP 18 [erts-7.0.1] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false] [dtrace]
+
+Interactive Elixir (1.0.5) - press Ctrl+C to exit (type h() ENTER for help)
+iex(1)> require Logger
+nil
+iex(2)> Logger.error "Hello syslog"
+:ok
+```
 
 ## Authors
 
