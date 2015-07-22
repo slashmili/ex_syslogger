@@ -1,9 +1,13 @@
 defmodule ExSyslog do
-  @moduledoc false
+  @moduledoc """
+  ExSyslog is custom backend for Elixir Logger that logs to syslog by wrapping `erlang-syslog`.
+  """
+
   use GenEvent
 
-  @default_pattern "\n$date $time [$level] $levelpad$node $metadata $message\n"
+  @default_pattern "$date $time [$level] $levelpad$node $metadata $message\n"
 
+  @doc false
   def init({__MODULE__, name}) do
     config = get_config(name, [])
 
@@ -42,13 +46,13 @@ defmodule ExSyslog do
   @doc """
   Handles an log event. Ignores the log event if the event level is less than the min log level.
   """
-  def handle_event({level, _gl, {Logger, msg, ts, md}},
+  def handle_event({level, _gl, {Logger, msg, timestamp, metadata}},
                    %{log: log, config: config} = state) do
     min_level = config.level
 
     if is_nil(min_level) or Logger.compare_levels(level, min_level) != :lt do
       priority = level_to_priority(level)
-      event = format_event(level, msg, ts, md, config)
+      event = format_event(level, msg, timestamp, metadata, config)
       :syslog.log(log, priority, event)
     end
 
@@ -70,22 +74,23 @@ defmodule ExSyslog do
     configs = Keyword.merge(env, options)
     Application.put_env(:logger, :exsyslog, configs)
 
-    format = Keyword.get(configs, :format, @default_pattern)
-             |> Logger.Formatter.compile()
     level = Keyword.get(configs, :level, :info)
     metadata = Keyword.get(configs, :metadata, [])
     facility = Keyword.get(configs, :facility, :local0)
     option = Keyword.get(configs, :option, :ndelay)
-    json? = Keyword.get(configs, :wrap_to_json, false)
     ident = Keyword.get(configs, :ident, "Elixir") |> String.to_char_list()
 
+    formatter = Keyword.get(configs, :formatter, Logger.Formatter)
+    format_str = Keyword.get(configs, :format, @default_pattern)
+    format = apply(formatter, :compile, [format_str])
+
     %{format: format,
+      formatter: formatter,
       level: level,
       metadata: metadata,
       ident: ident,
       facility: facility,
-      option: option,
-      json?: json?}
+      option: option}
   end
 
   defp open_log(%{ident: ident, facility: facility, option: option}) do
@@ -95,12 +100,23 @@ defmodule ExSyslog do
   defp close_log(nil), do: :ok
   defp close_log(log) when is_port(log), do: :syslog.close(log)
 
- defp format_event(level, msg, ts, md, config) do
-    metadata = md |> Keyword.take(config.metadata)
+  defp format_event(level, msg, timestamp, metadata,
+                    %{format: format,
+                      formatter: Logger.Formatter,
+                      metadata: config_metadata}) do
+    metadata = metadata |> Keyword.take(config_metadata)
 
-    config.format
-    |> Logger.Formatter.format(level, msg, ts, metadata)
+    format
+    |> Logger.Formatter.format(level, msg, timestamp, metadata)
     |> to_string()
- end
+  end
+
+  defp format_event(level, msg, timestamp, metadata,
+                    %{format: format,
+                      formatter: formatter,
+                      metadata: config_metadata}) do
+    apply(formatter, :format,
+          [format, level, msg, timestamp, metadata, config_metadata])
+  end
 
 end
