@@ -1,12 +1,13 @@
 defmodule ExSyslog.JsonFormatter do
   @moduledoc """
-  JsonFormatter is formatter that produces a properly JSON object string where the level, message and metadata are JSON object root properties.
+  JsonFormatter is formatter that produces a properly JSON object string where the level, message, node, and metadata are JSON object root properties.
 
   JSON object:
   ```
     {
       "level": "error",
       "message": "hello JSON formatter",
+      "node": "foo@local",
       "module": "MyApp.MyModule",
       "function": "do_something/2",
       "line": 21
@@ -15,7 +16,7 @@ defmodule ExSyslog.JsonFormatter do
 
   JSON string:
   ```
-  {\"level\":\"error\",\"message\":\"hello JSON formatter\",\"module\":\"MyApp.MyModule\",\"function\":\"do_something\/2\",\"line\":21}
+  {\"level\":\"error\",\"message\":\"hello JSON formatter\",\"node\":\"foo@local\",\"module\":\"MyApp.MyModule\",\"function\":\"do_something\/2\",\"line\":21}
 
   ```
   """
@@ -30,7 +31,7 @@ defmodule ExSyslog.JsonFormatter do
   defdelegate compile(str), to: Logger.Formatter
 
   @doc """
-  Takes a compiled format and injects the level, message and metadata and returns a properly formatted JSON object where level, message and metadata properties are root JSON properties. Message is formated with Logger.Formatter.
+  Takes a compiled format and injects the level, message, node and metadata and returns a properly formatted JSON object where level, message, node and metadata properties are root JSON properties. Message is formated with Logger.Formatter.
   """
   @spec format({atom, atom} | [Logger.Formatter.pattern | binary],
                Logger.level, Logger.message, Logger.Formatter.time,
@@ -43,7 +44,7 @@ defmodule ExSyslog.JsonFormatter do
               |> Logger.Formatter.format(level, msg, timestamp, metadata)
               |> to_string()
 
-    log = %{level: level, message: msg_str}
+    log = %{level: level, message: msg_str, node: node()}
 
     {:ok, log_json} = metadata
                       |> Enum.reduce(log, &add_to_log/2)
