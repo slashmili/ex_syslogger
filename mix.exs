@@ -42,6 +42,9 @@ defmodule Exsyslog.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    [{:syslog, "~> 1.0.2"}]
+    [{:syslog, "~> 1.0.2"},
+     {:ex_doc, "~> 0.7.3", only: :dev},
+     {:earmark, "~> 0.1.17", only: :dev},
+    ]
   end
 end
