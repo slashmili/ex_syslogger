@@ -16,12 +16,12 @@ defmodule Exsyslog.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger, :syslog]]
+    [applications: [:logger, :syslog, :poison]]
   end
 
   defp description do
     """
-    Exsyslog is a Elixir Logger custom backend to syslog.
+    ExSyslog is a Elixir Logger custom backend to syslog.
     """
   end
 
