@@ -20,26 +20,26 @@ Add `:exsyslog` and `:syslog` as a dependency in your `mix.exs` file
 
 defp deps do
   [
-    {:exsyslog, "~> 0.1.0"}
+    {:exsyslog, "~> 1.0.0"}
   ]
 end
 ```
 
 ## Configuration
 
-ExSyslog is a Logger custom backend, as such, it relies on [:logger](http://elixir-lang.org/docs/stable/logger/) application.
+ExSyslog is a Logger custom backend, as such, it relies on [Logger](http://elixir-lang.org/docs/stable/logger/) application.
 
 On your `config.exs` file tell `Logger` that it should add `ExSyslog` backend
 ```
 config :logger,
   backends: [
             {ExSyslog, :exsyslog_error},
-            {ExSyslog, :exsyslog_debug}
+            {ExSyslog, :exsyslog_debug},
             {ExSyslog, :exsyslog_json}
             ]
 ```
 
-With the configuration above, `logger` application will add three `ExSyslog` backend with the name `{ExSyslog, :exsyslog_error}`, `{ExSyslog, :exsyslog_debug}` and `{ExSyslog, :exsyslog_json}`.
+With the configuration above, `Logger` application will add three `ExSyslog` backend with the name `{ExSyslog, :exsyslog_error}`, `{ExSyslog, :exsyslog_debug}` and `{ExSyslog, :exsyslog_json}`.
 
 You might notice that instead of just passing the Module name, we're passing a tuple with `{Module name, backend configuration name}`. This allow us to have multiple backends with different configuration. Let's configure the backends:
 
@@ -85,13 +85,15 @@ ExSyslog by default uses [Logger.Formatter](http://elixir-lang.org/docs/stable/l
 
 To build a custom formatter the formatter needs to implement the following functions:
 
-`compile(str)` Compiles a format string
+`compile(str)`
+Compiles a format string
 ```
 compile(binary | nil) :: [Logger.Formatter.pattern | binary]
 compile({atom, atom}) :: {atom, atom}
 ```
 
-`format(format, level, msg, timestamp, metadata, config_metadata)` Takes a compiled format and transforms it on a string that will be pass to syslog
+`format(format, level, msg, timestamp, metadata, config_metadata)`
+Takes a compiled format and transforms it on a string that will be pass to syslog
 ```
 format({atom, atom} | [Logger.Formatter.pattern | binary], Logger.level, Logger.message, Logger.Formatter.time, Keyword.t, [atom]) :: IO.chardata
 ```
@@ -112,14 +114,32 @@ $ tail -f /var/log/system.log
 ```
 __NOTE__ Mac has a *funny* syslog. Your info logs might not show up. You'll need to configure your Mac syslog.
 
+Clone the project, go to examples/examples1 and run the project (`$ iex -S mix`).
+
 ```
-Erlang/OTP 18 [erts-7.0.1] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false] [dtrace]
+Erlang/OTP 18 [erts-7.0.2] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
 
 Interactive Elixir (1.0.5) - press Ctrl+C to exit (type h() ENTER for help)
-iex(1)> require Logger
-nil
-iex(2)> Logger.error "Hello syslog"
+iex(1)> Example1.run
+2015-09-11 15:26:18.850 [error] nonode@nohost module=Elixir.Example1 function=run/0 line=5  Hello ExSyslog
 :ok
+```
+
+You should see on the `tail -f` something similar to:
+
+`exsyslog_error` backend
+```
+Sep 11 16:26:18 bt.local MyApplication[12833]: 2015-09-11 15:26:18.850 [error] nonode@nohost module=Elixir.Example1 function=run/0 line=5  Hello ExSyslog
+```
+
+`exsyslog_debug` backend
+```
+Sep 11 16:26:18 bt.local MyApplication[12833]: 2015-09-11 15:26:18.850 [error] Hello ExSyslog
+```
+
+`exsyslog_json` backend
+```
+Sep 11 16:26:18 bt.local MyApplication[12833]: {"node":"nonode@nohost","module":"Elixir.Example1","message":"Hello ExSyslog","line":5,"level":"error","function":"run/0"}
 ```
 
 ## Authors
