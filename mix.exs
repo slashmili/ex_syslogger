@@ -45,7 +45,7 @@ defmodule Exsyslog.Mixfile do
     [{:syslog, "~> 1.0.2"},
      {:ex_doc, "~> 0.7.3", only: :dev},
      {:earmark, "~> 0.1.17", only: :dev},
-     {:poison, "~> 1.4.0"}
+     {:poison, "~> 1.4"}
     ]
   end
 end
