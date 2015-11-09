@@ -20,7 +20,7 @@ Add `:exsyslog` and `:syslog` as a dependency in your `mix.exs` file
 
 defp deps do
   [
-    {:exsyslog, "~> 1.0.0"}
+    {:exsyslog, "~> 1.0.1"}
   ]
 end
 ```
@@ -81,7 +81,7 @@ config :logger, :exsyslog_json,
 * __option__ (optional): syslog option to be used. It defaults to `:ndelay`. More documentation on [erlang-syslog](https://github.com/Vagabond/erlang-syslog/#syslogopenident-logopt-facility---ok-port)
 
 ## Custom Formatters
-ExSyslog by default uses [Logger.Formatter](http://elixir-lang.org/docs/stable/logger/Logger.Formatter.html). However, it comes with a [JSON formatter](http://hexdocs.pm/exsyslog/0.1.0) that formats a given log entry to a JSON string. __NOTE__: `ExSyslog.JsonFormatter` can be use as an example if one wants to build his own formatter.
+ExSyslog by default uses [Logger.Formatter](http://elixir-lang.org/docs/stable/logger/Logger.Formatter.html). However, it comes with a [JSON formatter](http://hexdocs.pm/exsyslog/1.0.1) that formats a given log entry to a JSON string. __NOTE__: `ExSyslog.JsonFormatter` can be use as an example if one wants to build his own formatter.
 
 To build a custom formatter the formatter needs to implement the following functions:
 
