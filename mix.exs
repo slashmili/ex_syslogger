@@ -27,7 +27,7 @@ defmodule Exsyslog.Mixfile do
 
   defp package do
     [ files: ["lib", "mix.exs", "README.md", "LICENSE"],
-      contributors: ["Bruno Tavares"],
+      maintainers: ["Bruno Tavares"],
       licenses: ["MIT"],
       links: %{"GitHub": "https://github.com/22cans/exsyslog"} ]
   end
