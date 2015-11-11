@@ -14,14 +14,21 @@ ExSyslog is custom backend for `Elixir Logger` that logs to syslog by wrapping [
 
 ## Installation
 
-Add `:exsyslog` and `:syslog` as a dependency in your `mix.exs` file
+Add `:exsyslog` as a dependency in your `mix.exs` file
 
 ```elixir
-
 defp deps do
   [
     {:exsyslog, "~> 1.0.1"}
   ]
+end
+```
+
+Add `:exsyslog` to your list of `included_applications`:
+
+```elixir
+def application do
+  [included_applications: [:exsyslog]]
 end
 ```
 
