@@ -24,12 +24,12 @@ defmodule ExSyslogger do
                   %{name: name, log: log, config: config} = state) do
     new_config = get_config(name, options)
 
-    if config.facility !== new_config.facility or
+    {:ok, log} = if config.facility !== new_config.facility or
        config.ident !== new_config.ident or
        config.option !== new_config.option do
 
         close_log(log)
-        {:ok, log} = open_log(new_config)
+        open_log(new_config)
     end
 
     new_state = %{state | log: log, config: new_config}
