@@ -1,7 +1,7 @@
-ExSyslog
+ExSyslogger
 ======
 
-ExSyslog is custom backend for `Elixir Logger` that logs to syslog by wrapping [erlang-syslog](https://github.com/Vagabond/erlang-syslog/).
+ExSyslogger is custom backend for `Elixir Logger` that logs to syslog by wrapping [erlang-syslog](https://github.com/Vagabond/erlang-syslog/).
 
 ## Requirements
 * Elixir ~> 1.0
@@ -14,44 +14,44 @@ ExSyslog is custom backend for `Elixir Logger` that logs to syslog by wrapping [
 
 ## Installation
 
-Add `:exsyslog` as a dependency in your `mix.exs` file
+Add `:ex_syslogger` as a dependency in your `mix.exs` file
 
 ```elixir
 defp deps do
   [
-    {:exsyslog, "~> 1.0.1"}
+    {:ex_syslogger, "~> 1.0.1"}
   ]
 end
 ```
 
-Add `:exsyslog` to your list of `included_applications`:
+Add `:ex_syslogger` to your list of `included_applications`:
 
 ```elixir
 def application do
-  [included_applications: [:exsyslog]]
+  [included_applications: [:ex_syslogger]]
 end
 ```
 
 ## Configuration
 
-ExSyslog is a Logger custom backend, as such, it relies on [Logger](http://elixir-lang.org/docs/stable/logger/) application.
+ExSyslogger is a Logger custom backend, as such, it relies on [Logger](http://elixir-lang.org/docs/stable/logger/) application.
 
-On your `config.exs` file tell `Logger` that it should add `ExSyslog` backend
+On your `config.exs` file tell `Logger` that it should add `ExSyslogger` backend
 ```
 config :logger,
   backends: [
-            {ExSyslog, :exsyslog_error},
-            {ExSyslog, :exsyslog_debug},
-            {ExSyslog, :exsyslog_json}
+            {ExSyslogger, :ex_syslogger_error},
+            {ExSyslogger, :ex_syslogger_debug},
+            {ExSyslogger, :ex_syslogger_json}
             ]
 ```
 
-With the configuration above, `Logger` application will add three `ExSyslog` backend with the name `{ExSyslog, :exsyslog_error}`, `{ExSyslog, :exsyslog_debug}` and `{ExSyslog, :exsyslog_json}`.
+With the configuration above, `Logger` application will add three `ExSyslogger` backend with the name `{ExSyslogger, :ex_syslogger_error}`, `{ExSyslogger, :ex_syslogger_debug}` and `{ExSyslogger, :ex_syslogger_json}`.
 
 You might notice that instead of just passing the Module name, we're passing a tuple with `{Module name, backend configuration name}`. This allow us to have multiple backends with different configuration. Let's configure the backends:
 
 ```
-config :logger, :exsyslog_error,
+config :logger, :ex_syslogger_error,
   level: :error,
   format: "$date $time [$level] $levelpad$node $metadata $message",
   metadata: [:module, :line, :function],
@@ -59,17 +59,17 @@ config :logger, :exsyslog_error,
   facility: :local0,
   option: [:pid, :cons]
 
-config :logger, :exsyslog_debug,
+config :logger, :ex_syslogger_debug,
   level: :debug,
   format: "$date $time [$level] $message",
   ident: "MyApplication",
   facility: :local1,
   option: [:pid, :perror]
 
-config :logger, :exsyslog_json,
+config :logger, :ex_syslogger_json,
   level: :debug,
   format: "$message",
-  formatter: ExSyslog.JsonFormatter,
+  formatter: ExSyslogger.JsonFormatter,
   metadata: [:module, :line, :function],
   ident: "MyApplication",
   facility: :local1,
@@ -88,7 +88,7 @@ config :logger, :exsyslog_json,
 * __option__ (optional): syslog option to be used. It defaults to `:ndelay`. More documentation on [erlang-syslog](https://github.com/Vagabond/erlang-syslog/#syslogopenident-logopt-facility---ok-port)
 
 ## Custom Formatters
-ExSyslog by default uses [Logger.Formatter](http://elixir-lang.org/docs/stable/logger/Logger.Formatter.html). However, it comes with a [JSON formatter](http://hexdocs.pm/exsyslog/1.0.1) that formats a given log entry to a JSON string. __NOTE__: `ExSyslog.JsonFormatter` can be use as an example if one wants to build his own formatter.
+ExSyslogger by default uses [Logger.Formatter](http://elixir-lang.org/docs/stable/logger/Logger.Formatter.html). However, it comes with a [JSON formatter](http://hexdocs.pm/exsyslog/1.0.1) that formats a given log entry to a JSON string. __NOTE__: `ExSyslogger.JsonFormatter` can be use as an example if one wants to build his own formatter.
 
 To build a custom formatter the formatter needs to implement the following functions:
 
@@ -105,7 +105,7 @@ Takes a compiled format and transforms it on a string that will be pass to syslo
 format({atom, atom} | [Logger.Formatter.pattern | binary], Logger.level, Logger.message, Logger.Formatter.time, Keyword.t, [atom]) :: IO.chardata
 ```
 
-To add the custom formatter you will need to set the `formatter` property on the configuration as exemplified above with `ExSyslog.JsonFormatter`
+To add the custom formatter you will need to set the `formatter` property on the configuration as exemplified above with `ExSyslogger.JsonFormatter`
 
 ## Try it
 
@@ -128,7 +128,7 @@ Erlang/OTP 18 [erts-7.0.2] [source] [64-bit] [smp:4:4] [async-threads:10] [hipe]
 
 Interactive Elixir (1.0.5) - press Ctrl+C to exit (type h() ENTER for help)
 iex(1)> Example1.run
-2015-09-11 15:26:18.850 [error] nonode@nohost module=Elixir.Example1 function=run/0 line=5  Hello ExSyslog
+2015-09-11 15:26:18.850 [error] nonode@nohost module=Elixir.Example1 function=run/0 line=5  Hello ExSyslogger
 :ok
 ```
 
@@ -136,26 +136,18 @@ You should see on the `tail -f` something similar to:
 
 `exsyslog_error` backend
 ```
-Sep 11 16:26:18 bt.local MyApplication[12833]: 2015-09-11 15:26:18.850 [error] nonode@nohost module=Elixir.Example1 function=run/0 line=5  Hello ExSyslog
+Sep 11 16:26:18 bt.local MyApplication[12833]: 2015-09-11 15:26:18.850 [error] nonode@nohost module=Elixir.Example1 function=run/0 line=5  Hello ExSyslogger
 ```
 
 `exsyslog_debug` backend
 ```
-Sep 11 16:26:18 bt.local MyApplication[12833]: 2015-09-11 15:26:18.850 [error] Hello ExSyslog
+Sep 11 16:26:18 bt.local MyApplication[12833]: 2015-09-11 15:26:18.850 [error] Hello ExSyslogger
 ```
 
 `exsyslog_json` backend
 ```
-Sep 11 16:26:18 bt.local MyApplication[12833]: {"node":"nonode@nohost","module":"Elixir.Example1","message":"Hello ExSyslog","line":5,"level":"error","function":"run/0"}
+Sep 11 16:26:18 bt.local MyApplication[12833]: {"node":"nonode@nohost","module":"Elixir.Example1","message":"Hello ExSyslogger","line":5,"level":"error","function":"run/0"}
 ```
-
-## Authors
-
-* Bruno Tavares (<btavares@22cans.com>)
-
-## License
-
-exsyslog is copyright (c) 2015 22cans Ltd.
 
 The source code is released under the MIT License.
 

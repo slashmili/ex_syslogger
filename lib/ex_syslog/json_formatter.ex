@@ -1,4 +1,4 @@
-defmodule ExSyslog.JsonFormatter do
+defmodule ExSyslogger.JsonFormatter do
   @moduledoc """
   JsonFormatter is formatter that produces a properly JSON object string where the level, message, node, and metadata are JSON object root properties.
 

@@ -1,6 +1,6 @@
-defmodule ExSyslog do
+defmodule ExSyslogger do
   @moduledoc """
-  ExSyslog is custom backend for Elixir Logger that logs to syslog by wrapping `erlang-syslog`.
+  ExSyslogger is custom backend for Elixir Logger that logs to syslog by wrapping `erlang-syslog`.
   """
 
   use GenEvent
@@ -72,7 +72,7 @@ defmodule ExSyslog do
   defp get_config(name, options) do
     env = Application.get_env(:logger, name, [])
     configs = Keyword.merge(env, options)
-    Application.put_env(:logger, :exsyslog, configs)
+    Application.put_env(:logger, :ex_syslogger, configs)
 
     level = Keyword.get(configs, :level, :info)
     metadata = Keyword.get(configs, :metadata, [])

@@ -1,8 +1,8 @@
-defmodule Exsyslog.Mixfile do
+defmodule ExSyslogger.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :exsyslog,
+    [app: :ex_syslogger,
      version: "1.0.1",
      elixir: "~> 1.0",
      build_embedded: Mix.env == :prod,
@@ -21,7 +21,7 @@ defmodule Exsyslog.Mixfile do
 
   defp description do
     """
-    ExSyslog is a Elixir Logger custom backend to syslog.
+    ExSyslogger is a Elixir Logger custom backend to syslog.
     """
   end
 
