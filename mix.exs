@@ -16,7 +16,7 @@ defmodule ExSyslogger.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger, :syslog, :poison]]
+    [applications: [:syslog, :logger, :poison]]
   end
 
   defp description do
@@ -45,7 +45,7 @@ defmodule ExSyslogger.Mixfile do
     [{:syslog, "~> 1.0.2"},
      {:ex_doc, "~> 0.10", only: :dev},
      {:earmark, "~> 0.1.17", only: :dev},
-     {:poison, "~> 1.4"}
+     {:poison, "~> 1.5 or ~> 2.0"}
     ]
   end
 end

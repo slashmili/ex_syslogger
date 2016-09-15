@@ -1,3 +1,2 @@
-%{"exsyslog": {:hex, :ex_syslogger, "1.0.0"},
-  "poison": {:hex, :poison, "1.4.0"},
-  "syslog": {:hex, :syslog, "1.0.2"}}
+%{"poison": {:hex, :poison, "2.2.0", "4763b69a8a77bd77d26f477d196428b741261a761257ff1cf92753a0d4d24a63", [:mix], []},
+  "syslog": {:hex, :syslog, "1.0.2", "9cf72c0986675a170c03b210e49700845a0f7b61e96d302a3ba0df82963daf60", [:rebar], []}}
