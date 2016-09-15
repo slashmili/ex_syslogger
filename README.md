@@ -149,6 +149,6 @@ Sep 11 16:26:18 bt.local MyApplication[12833]: 2015-09-11 15:26:18.850 [error] H
 Sep 11 16:26:18 bt.local MyApplication[12833]: {"node":"nonode@nohost","module":"Elixir.Example1","message":"Hello ExSyslogger","line":5,"level":"error","function":"run/0"}
 ```
 
-The source code is released under the MIT License.
+The source code is released under the MIT License. Check [LICENSE](LICENSE) for more information.
 
-Check [LICENSE](LICENSE) for more information.
+This project is fork of [exsyslog](https://github.com/22cans/exsyslog).

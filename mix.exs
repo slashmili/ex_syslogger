@@ -3,7 +3,7 @@ defmodule ExSyslogger.Mixfile do
 
   def project do
     [app: :ex_syslogger,
-     version: "1.0.1",
+     version: "1.1.0",
      elixir: "~> 1.0",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -27,9 +27,9 @@ defmodule ExSyslogger.Mixfile do
 
   defp package do
     [ files: ["lib", "mix.exs", "README.md", "LICENSE"],
-      maintainers: ["Bruno Tavares"],
+      maintainers: ["Milad Rastian"],
       licenses: ["MIT"],
-      links: %{"GitHub": "https://github.com/22cans/exsyslog"} ]
+      links: %{"GitHub": "https://github.com/slashmili/ex_syslogger"} ]
   end
 
   # Dependencies can be Hex packages:
