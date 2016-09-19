@@ -12,7 +12,7 @@ This project is a fork of [exsyslog](https://github.com/22cans/exsyslog).
 * Logs to syslog
 * Allows adding multiple backends with different configurations (e.g. each backend logs to a different facility with different log level)
 * Custom log formatter
-* Built-in JSON formatter
+* Built-in JSON formatter(`poison` dependency is set to optional and you should explicitly add it to your dependency list)
 
 ## Installation
 
@@ -21,7 +21,7 @@ Add `:ex_syslogger` as a dependency in your `mix.exs` file
 ```elixir
 defp deps do
   [
-    {:ex_syslogger, "~> 1.1"}
+    {:ex_syslogger, "~> 1.2"}
   ]
 end
 ```

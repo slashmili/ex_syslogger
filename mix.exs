@@ -3,7 +3,7 @@ defmodule ExSyslogger.Mixfile do
 
   def project do
     [app: :ex_syslogger,
-     version: "1.1.0",
+     version: "1.2.0",
      elixir: "~> 1.0",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -45,7 +45,7 @@ defmodule ExSyslogger.Mixfile do
     [{:syslog, "~> 1.0.2"},
      {:ex_doc, "~> 0.10", only: :dev},
      {:earmark, "~> 0.1.17", only: :dev},
-     {:poison, "~> 1.5 or ~> 2.0"}
+     {:poison, "~> 1.5 or ~> 2.0", optional: true}
     ]
   end
 end
