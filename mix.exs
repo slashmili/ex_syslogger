@@ -1,15 +1,19 @@
 defmodule ExSyslogger.Mixfile do
   use Mix.Project
 
+  @version "1.2.0"
+
   def project do
     [app: :ex_syslogger,
-     version: "1.2.0",
+     version: @version,
      elixir: "~> 1.0",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      description: description,
      package: package,
-     deps: deps]
+     deps: deps,
+     docs: [source_ref: "#{@version}", main: "ExSyslogger"],
+     source_url: "https://github.com/slashmili/ex_syslogger"]
   end
 
   # Configuration for the OTP application
