@@ -21,7 +21,7 @@ defmodule ExSyslogger.Mixfile do
 
   defp description do
     """
-    ExSyslogger is a Elixir Logger custom backend to syslog.
+    ExSyslogger is an Elixir Logger custom backend to syslog.
     """
   end
 
