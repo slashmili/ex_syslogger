@@ -3,6 +3,8 @@ ExSyslogger
 
 ExSyslogger is custom backend for `Elixir Logger` that logs to syslog by wrapping [erlang-syslog](https://github.com/Vagabond/erlang-syslog/).
 
+This project is a fork of [exsyslog](https://github.com/22cans/exsyslog).
+
 ## Requirements
 * Elixir ~> 1.0
 
@@ -150,5 +152,3 @@ Sep 11 16:26:18 bt.local MyApplication[12833]: {"node":"nonode@nohost","module":
 ```
 
 The source code is released under the MIT License. Check [LICENSE](LICENSE) for more information.
-
-This project is fork of [exsyslog](https://github.com/22cans/exsyslog).
