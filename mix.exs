@@ -20,7 +20,8 @@ defmodule ExSyslogger.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:syslog, :logger, :poison]]
+    [applications: [:logger, :poison],
+     included_applications: [:syslog]]
   end
 
   defp description do
