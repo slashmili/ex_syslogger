@@ -9,9 +9,9 @@ defmodule ExSyslogger.Mixfile do
      elixir: "~> 1.0",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     description: description,
-     package: package,
-     deps: deps,
+     description: description(),
+     package: package(),
+     deps: deps(),
      docs: [source_ref: "#{@version}", main: "ExSyslogger"],
      source_url: "https://github.com/slashmili/ex_syslogger"]
   end
