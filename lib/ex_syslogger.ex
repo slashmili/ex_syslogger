@@ -203,6 +203,7 @@ defmodule ExSyslogger do
     {:ok, state}
   end
 
+  def handle_event(:flush, state), do: {:ok, state}
 
   ##############################################################################
   #
