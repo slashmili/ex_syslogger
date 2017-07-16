@@ -28,7 +28,8 @@ defmodule Example1.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:ex_syslogger, path: "../../"}
+      {:ex_syslogger, path: "../../"},
+      {:poison, ">= 1.5.0"}
     ]
   end
 end
