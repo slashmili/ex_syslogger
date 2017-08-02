@@ -12,10 +12,22 @@ defmodule ExSyslogger do
 
   Add `:ex_syslogger` as a dependency in your `mix.exs` file
 
+  ### Elixir 1.5 and above
+
   ```elixir
   defp deps do
     [
-      {:ex_syslogger, "~> 1.2"}
+      {:ex_syslogger, github: "slashmili/ex_syslogger", tag: "1.4.0"}
+    ]
+  end
+  ```
+
+  ### Elixir  ~> 1.4
+
+  ```elixir
+  defp deps do
+    [
+      {:ex_syslogger, "~> 1.3"}
     ]
   end
   ```
