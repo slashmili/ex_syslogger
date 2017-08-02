@@ -6,7 +6,7 @@ defmodule ExSyslogger.Mixfile do
   def project do
     [app: :ex_syslogger,
      version: @version,
-     elixir: "~> 1.5",
+     elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      description: description(),
@@ -48,8 +48,7 @@ defmodule ExSyslogger.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [{:syslog, github: "Vagabond/erlang-syslog", tag: "1.0.5"},
-     {:ex_doc, "~> 0.10", only: :dev},
-     {:earmark, "~> 0.1.17", only: :dev},
+     {:ex_doc, "~> 0.16", only: :dev},
      {:poison, ">= 1.5.0", optional: true}
     ]
   end
