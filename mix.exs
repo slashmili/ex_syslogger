@@ -1,12 +1,12 @@
 defmodule ExSyslogger.Mixfile do
   use Mix.Project
 
-  @version "1.3.4"
+  @version "1.4.0"
 
   def project do
     [app: :ex_syslogger,
      version: @version,
-     elixir: "~> 1.0",
+     elixir: "~> 1.5",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      description: description(),

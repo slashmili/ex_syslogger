@@ -147,7 +147,7 @@ defmodule ExSyslogger do
 
   """
 
-  use GenEvent
+  @behaviour :gen_event
 
   @default_pattern "$date $time [$level] $levelpad$node $metadata $message\n"
 
@@ -223,7 +223,7 @@ defmodule ExSyslogger do
     metadata = Keyword.get(configs, :metadata, [])
     facility = Keyword.get(configs, :facility, :local0)
     option = Keyword.get(configs, :option, :ndelay)
-    ident = Keyword.get(configs, :ident, "Elixir") |> String.to_char_list()
+    ident = Keyword.get(configs, :ident, "Elixir") |> String.to_charlist
 
     formatter = Keyword.get(configs, :formatter, Logger.Formatter)
     format_str = Keyword.get(configs, :format, @default_pattern)
@@ -262,6 +262,21 @@ defmodule ExSyslogger do
                       metadata: config_metadata}) do
     apply(formatter, :format,
           [format, level, msg, timestamp, metadata, config_metadata])
+  end
+
+  @doc false
+  def handle_info(_msg, state) do
+	{:ok, state}
+  end
+
+  @doc false
+  def terminate(_reason, _state) do
+	:ok
+  end
+
+  @doc false
+  def code_change(_old, state, _extra) do
+	{:ok, state}
   end
 
 end
