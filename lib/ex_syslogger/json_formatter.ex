@@ -40,6 +40,10 @@ defmodule ExSyslogger.JsonFormatter do
                Keyword.t, list(atom)) :: IO.chardata
 
   def format(format, level, msg, timestamp, metadata, config_metadata) do
+    case Code.ensure_loaded(Poison) do
+      {:error, _} -> throw :add_poison_to_your_deps
+      _ -> nil
+    end
     metadata = metadata |> Keyword.take(config_metadata)
 
     msg_str = format
@@ -48,9 +52,8 @@ defmodule ExSyslogger.JsonFormatter do
 
     log = %{level: level, message: msg_str, node: node()}
 
-    {:ok, log_json} = metadata
-                      |> Enum.reduce(log, &add_to_log/2)
-                      |> Poison.encode()
+    metadata = Enum.reduce(metadata, log, &add_to_log/2)
+    {:ok, log_json} = apply(Poison, :encode, [metadata])
 
     log_json
   end
