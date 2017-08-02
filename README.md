@@ -1,5 +1,13 @@
+
 ExSyslogger
 ======
+
+[![Build Status](https://travis-ci.org/slashmili/ex_syslogger.svg?branch=master)](https://travis-ci.org/slashmili/ex_syslogger)
+[![Hex.pm](https://img.shields.io/hexpm/v/ex_syslogger.svg)](https://hex.pm/packages/ex_syslogger)
+[![Docs](https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat)](https://hexdocs.pm/ex_syslogger/)
+[![Hex.pm](https://img.shields.io/hexpm/dt/ex_syslogger.svg)](https://hex.pm/packages/ex_syslogger)
+[![Deps Status](https://beta.hexfaktor.org/badge/all/github/slashmili/ex_syslogger.svg)](https://beta.hexfaktor.org/github/slashmili/ex_syslogger)
+[![Hex.pm](https://img.shields.io/hexpm/l/ex_syslogger.svg)]()
 
 ExSyslogger is custom backend for `Elixir Logger` that logs to syslog by wrapping [erlang-syslog](https://github.com/Vagabond/erlang-syslog/).
 
