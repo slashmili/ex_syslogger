@@ -1,10 +1,10 @@
 ## [1.4.0] - 2017-08-02
 
-## Add
+### Add
 - Support of Elixir 1.5
 - Throw error if Json format is used but poison is not added as dependency
 
-## Changed
+### Changed
 - Replace GenEvent with `:gen_event` since it's deprecated in Elixir 1.5
 - Update `erlang-syslog` to 1.0.5
 
