@@ -8,10 +8,12 @@
 - Replace GenEvent with `:gen_event` since it's deprecated in Elixir 1.5
 - Update `erlang-syslog` to 1.0.5
 
+### Removed
+- Drop support for Elixir <= 1.2
+
 ## [1.3.4] - 2017-08-02
 ### Add
 - Add travis test
-- Drop support for Elixir  <= 1.2
 
 ## Changed
 - Fix example project
