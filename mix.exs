@@ -47,7 +47,7 @@ defmodule ExSyslogger.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    [{:syslog, github: "Vagabond/erlang-syslog", tag: "1.0.5"},
+    [{:syslog, "~> 1.0.5"},
      {:ex_doc, "~> 0.16", only: :dev},
      {:poison, ">= 1.5.0", optional: true}
     ]
