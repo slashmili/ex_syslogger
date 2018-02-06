@@ -180,13 +180,17 @@ defmodule ExSyslogger do
                   %{name: name, log: log, config: config} = state) do
     new_config = get_config(name, options)
 
-    {:ok, log} = if config.facility !== new_config.facility or
-       config.ident !== new_config.ident or
-       config.option !== new_config.option do
+    {:ok, log} =
+      if config.facility !== new_config.facility or
+        config.ident !== new_config.ident or
+        config.option !== new_config.option or
+        config.level !== new_config.level do
 
         close_log(log)
         open_log(new_config)
-    end
+      else
+        {:ok, log}
+      end
 
     new_state = %{state | log: log, config: new_config}
     {:ok, :ok, new_state}
