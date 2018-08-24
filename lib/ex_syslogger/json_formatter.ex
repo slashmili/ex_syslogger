@@ -63,7 +63,32 @@ defmodule ExSyslogger.JsonFormatter do
   #
   # Internal functions
 
-  defp add_to_log({_, nil}, log), do: log
-  defp add_to_log({key, value}, log), do: Map.put(log, key, value)
+  defp add_to_log({_, nil}, log) do
+    log
+  end
 
+  defp add_to_log({:initial_call, {mod, fun, arity}}, log) when is_atom(mod) and is_atom(fun) and is_integer(arity) do
+    Map.put(log, :initial_call, Exception.format_mfa(mod, fun, arity))
+  end
+
+  defp add_to_log({key, pid}, log) when is_pid(pid) do
+    Map.put(log, key, List.to_string(:erlang.pid_to_list(pid)))
+  end
+
+  defp add_to_log({key, ref}, log) when is_reference(ref) do
+    '#Ref' ++ rest = :erlang.ref_to_list(ref)
+    Map.put(log, key, List.to_string(rest))
+  end
+
+  defp add_to_log({key, atom}, log) when is_atom(atom) do
+    binary = case Atom.to_string(atom) do
+      "Elixir." <> rest -> rest
+      binary -> binary
+    end
+    Map.put(log, key, binary)
+  end
+
+  defp add_to_log({key, value}, log) do
+    Map.put(log, key, to_string(value))
+  end
 end
