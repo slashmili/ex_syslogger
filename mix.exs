@@ -52,7 +52,7 @@ defmodule ExSyslogger.Mixfile do
   defp deps do
     [
       {:syslog, "~> 1.0.5"},
-      {:ex_doc, "~> 0.16", only: :dev},
+      {:ex_doc, "~> 0.19", only: :dev},
       {:poison, ">= 1.5.0", optional: true}
     ]
   end
