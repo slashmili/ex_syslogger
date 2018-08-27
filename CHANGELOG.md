@@ -1,3 +1,8 @@
+## [1.4.1] - 2018-08-27
+
+### Changed
+- Update formatter to support ref, pid and mfa 
+
 ## [1.4.0] - 2017-08-02
 
 ### Add

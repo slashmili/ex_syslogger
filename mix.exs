@@ -1,27 +1,28 @@
 defmodule ExSyslogger.Mixfile do
   use Mix.Project
 
-  @version "1.4.0"
+  @version "1.4.1"
 
   def project do
-    [app: :ex_syslogger,
-     version: @version,
-     elixir: "~> 1.3",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     description: description(),
-     package: package(),
-     deps: deps(),
-     docs: [source_ref: "#{@version}", main: "ExSyslogger"],
-     source_url: "https://github.com/slashmili/ex_syslogger"]
+    [
+      app: :ex_syslogger,
+      version: @version,
+      elixir: "~> 1.3",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      description: description(),
+      package: package(),
+      deps: deps(),
+      docs: [source_ref: "#{@version}", main: "ExSyslogger"],
+      source_url: "https://github.com/slashmili/ex_syslogger"
+    ]
   end
 
   # Configuration for the OTP application
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger, :poison],
-     included_applications: [:syslog]]
+    [applications: [:logger, :poison], included_applications: [:syslog]]
   end
 
   defp description do
@@ -31,10 +32,12 @@ defmodule ExSyslogger.Mixfile do
   end
 
   defp package do
-    [ files: ["lib", "mix.exs", "README.md", "LICENSE"],
+    [
+      files: ["lib", "mix.exs", "README.md", "LICENSE"],
       maintainers: ["Milad Rastian"],
       licenses: ["MIT"],
-      links: %{"GitHub": "https://github.com/slashmili/ex_syslogger"} ]
+      links: %{GitHub: "https://github.com/slashmili/ex_syslogger"}
+    ]
   end
 
   # Dependencies can be Hex packages:
@@ -47,9 +50,10 @@ defmodule ExSyslogger.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    [{:syslog, "~> 1.0.5"},
-     {:ex_doc, "~> 0.16", only: :dev},
-     {:poison, ">= 1.5.0", optional: true}
+    [
+      {:syslog, "~> 1.0.5"},
+      {:ex_doc, "~> 0.16", only: :dev},
+      {:poison, ">= 1.5.0", optional: true}
     ]
   end
 end
