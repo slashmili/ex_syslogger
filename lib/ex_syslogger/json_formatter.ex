@@ -33,7 +33,7 @@ defmodule ExSyslogger.JsonFormatter do
   @doc """
   Takes a compiled format and injects the level, message, node and metadata and returns a properly formatted JSON object where level, message, node and metadata properties are root JSON properties. Message is formated with Logger.Formatter.
 
-  `config_metadata`: is the metadata that is set on the configuration e.g. "metadata: [:module, :line, :function]".
+  `config_metadata`: is the metadata that is set on the configuration e.g. `metadata: [:module, :line, :function]` to include `:module`, `:line` and `:function` keys. Can be set to `:all` to include all keys.
   """
   @spec format({atom, atom} | [Logger.Formatter.pattern | binary],
                Logger.level, Logger.message, Logger.Formatter.time,
@@ -44,7 +44,15 @@ defmodule ExSyslogger.JsonFormatter do
       {:error, _} -> throw :add_poison_to_your_deps
       _ -> nil
     end
-    metadata = metadata |> Keyword.take(config_metadata)
+
+    metadata = case config_metadata do
+      :all ->
+        metadata
+      keys when is_list(keys) ->
+        metadata |> Keyword.take(keys)
+      _ ->
+        []
+    end
 
     msg_str = format
               |> Logger.Formatter.format(level, msg, timestamp, metadata)
