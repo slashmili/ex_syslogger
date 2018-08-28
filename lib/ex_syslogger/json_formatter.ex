@@ -88,7 +88,15 @@ defmodule ExSyslogger.JsonFormatter do
     Map.put(log, key, binary)
   end
 
+  defp add_to_log({key, value}, log) when is_list(value) do
+    Map.put(log, key, List.to_string(value))
+  end
+
+  defp add_to_log({key, value}, log) when is_binary(value) do
+    Map.put(log, key, value)
+  end
+
   defp add_to_log({key, value}, log) do
-    Map.put(log, key, to_string(value))
+    Map.put(log, key, inspect(value))
   end
 end
