@@ -1,3 +1,8 @@
+## [1.4.1] - 2018-08-29
+
+### Changed
+- Support :all for config metadata
+
 ## [1.4.1] - 2018-08-27
 
 ### Changed
