@@ -54,6 +54,8 @@ def application do
 end
 ```
 
+If you going to use JsonFormatter please we sure that `poison` is added as dependency in your application. For older Elixir versions it might be needed to add it to the list of applications as above.
+
 ## Configuration
 
 ExSyslogger is a Logger custom backend, as such, it relies on [Logger](http://elixir-lang.org/docs/stable/logger/) application.
