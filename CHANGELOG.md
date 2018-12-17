@@ -1,3 +1,8 @@
+## [1.5.0] - 2018-12-17
+
+### Changed
+- Removed poison from applications list
+
 ## [1.4.1] - 2018-08-29
 
 ### Changed
