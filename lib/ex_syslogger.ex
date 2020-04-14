@@ -265,7 +265,10 @@ defmodule ExSyslogger do
                     %{format: format,
                       formatter: Logger.Formatter,
                       metadata: config_metadata}) do
-    metadata = metadata |> Keyword.take(config_metadata)
+    metadata =
+      if config_metadata == :all,
+        do: metadata,
+        else: Keyword.take(metadata, config_metadata)
 
     format
     |> Logger.Formatter.format(level, msg, timestamp, metadata)
