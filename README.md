@@ -31,7 +31,7 @@ Add `:ex_syslogger` as a dependency in your `mix.exs` file
 ```elixir
 defp deps do
   [
-    {:ex_syslogger, "~> 1.4"}
+    {:ex_syslogger, "~> 1.5"}
   ]
 end
 ```
