@@ -1,4 +1,10 @@
-## [1.5.1] - 2020-4-15
+## [1.5.2] - 2020-04-30
+
+### Fixed
+- syslog dependency was not able to compile with new rebar
+
+
+## [1.5.1] - 2020-04-15
 
 ### Fixed
 - Accept :all as metadate in Logger config
