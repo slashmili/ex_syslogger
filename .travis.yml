@@ -15,3 +15,6 @@ matrix:
     - os: linux
       otp_release: 20.0
       elixir: 1.6.0
+    - os: linux
+      otp_release: 24.0
+      elixir: 1.11.0
