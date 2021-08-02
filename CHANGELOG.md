@@ -1,3 +1,9 @@
+## [2.0.0] - 2021-08-02
+
+### Changed
+- Breaking change: Replace Poison with Jason
+
+
 ## [1.5.2] - 2020-04-30
 
 ### Fixed
