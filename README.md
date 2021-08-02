@@ -20,7 +20,7 @@ This project is a fork of [exsyslog](https://github.com/22cans/exsyslog).
 * Logs to syslog
 * Allows adding multiple backends with different configurations (e.g. each backend logs to a different facility with different log level)
 * Custom log formatter
-* Built-in JSON formatter(`poison` dependency is set to optional and you should explicitly add it to your dependency list)
+* Built-in JSON formatter(`jason` dependency is set to optional and you should explicitly add it to your dependency list)
 
 ## Installation
 
@@ -54,7 +54,7 @@ def application do
 end
 ```
 
-If you going to use JsonFormatter please we sure that `poison` is added as dependency in your application. For older Elixir versions it might be needed to add it to the list of applications as above.
+If you going to use JsonFormatter please we sure that `jason` is added as dependency in your application. For older Elixir versions it might be needed to add it to the list of applications as above.
 
 ## Configuration
 

@@ -1,7 +1,7 @@
 defmodule ExSyslogger.Mixfile do
   use Mix.Project
 
-  @version "1.5.2"
+  @version "2.0.0"
 
   def project do
     [
@@ -53,7 +53,7 @@ defmodule ExSyslogger.Mixfile do
     [
       {:syslog, "~> 1.1.0"},
       {:ex_doc, "~> 0.19", only: :dev},
-      {:poison, ">= 1.5.0", optional: true}
+      {:jason, "~> 1.2", optional: true}
     ]
   end
 end

@@ -2,12 +2,14 @@ defmodule Example1.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :example1,
-     version: "0.0.1",
-     elixir: "~> 1.0",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps]
+    [
+      app: :example1,
+      version: "0.0.1",
+      elixir: "~> 1.0",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      deps: deps
+    ]
   end
 
   # Configuration for the OTP application
@@ -29,7 +31,7 @@ defmodule Example1.Mixfile do
   defp deps do
     [
       {:ex_syslogger, path: "../../"},
-      {:poison, ">= 1.5.0"}
+      {:jason, "~> 1.2"}
     ]
   end
 end
