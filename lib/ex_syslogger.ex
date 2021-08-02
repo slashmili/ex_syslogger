@@ -176,16 +176,17 @@ defmodule ExSyslogger do
   @doc """
   Changes backend configuration.
   """
-  def handle_call({:configure, options},
-                  %{name: name, log: log, config: config} = state) do
+  def handle_call(
+        {:configure, options},
+        %{name: name, log: log, config: config} = state
+      ) do
     new_config = get_config(name, options)
 
     {:ok, log} =
       if config.facility !== new_config.facility or
-        config.ident !== new_config.ident or
-        config.option !== new_config.option or
-        config.level !== new_config.level do
-
+           config.ident !== new_config.ident or
+           config.option !== new_config.option or
+           config.level !== new_config.level do
         close_log(log)
         open_log(new_config)
       else
@@ -206,8 +207,10 @@ defmodule ExSyslogger do
   @doc """
   Handles an log event. Ignores the log event if the event level is less than the min log level.
   """
-  def handle_event({level, _gl, {Logger, msg, timestamp, metadata}},
-                   %{log: log, config: config} = state) do
+  def handle_event(
+        {level, _gl, {Logger, msg, timestamp, metadata}},
+        %{log: log, config: config} = state
+      ) do
     min_level = config.level
 
     if is_nil(min_level) or Logger.compare_levels(level, min_level) != :lt do
@@ -239,19 +242,21 @@ defmodule ExSyslogger do
     metadata = Keyword.get(configs, :metadata, [])
     facility = Keyword.get(configs, :facility, :local0)
     option = Keyword.get(configs, :option, :ndelay)
-    ident = Keyword.get(configs, :ident, "Elixir") |> String.to_charlist
+    ident = Keyword.get(configs, :ident, "Elixir") |> String.to_charlist()
 
     formatter = Keyword.get(configs, :formatter, Logger.Formatter)
     format_str = Keyword.get(configs, :format, @default_pattern)
     format = apply(formatter, :compile, [format_str])
 
-    %{format: format,
+    %{
+      format: format,
       formatter: formatter,
       level: level,
       metadata: metadata,
       ident: ident,
       facility: facility,
-      option: option}
+      option: option
+    }
   end
 
   defp open_log(%{ident: ident, facility: facility, option: option}) do
@@ -261,10 +266,11 @@ defmodule ExSyslogger do
   defp close_log(nil), do: :ok
   defp close_log(log) when is_port(log), do: :syslog.close(log)
 
-  defp format_event(level, msg, timestamp, metadata,
-                    %{format: format,
-                      formatter: Logger.Formatter,
-                      metadata: config_metadata}) do
+  defp format_event(level, msg, timestamp, metadata, %{
+         format: format,
+         formatter: Logger.Formatter,
+         metadata: config_metadata
+       }) do
     metadata =
       if config_metadata == :all,
         do: metadata,
@@ -275,27 +281,26 @@ defmodule ExSyslogger do
     |> to_string()
   end
 
-  defp format_event(level, msg, timestamp, metadata,
-                    %{format: format,
-                      formatter: formatter,
-                      metadata: config_metadata}) do
-    apply(formatter, :format,
-          [format, level, msg, timestamp, metadata, config_metadata])
+  defp format_event(level, msg, timestamp, metadata, %{
+         format: format,
+         formatter: formatter,
+         metadata: config_metadata
+       }) do
+    apply(formatter, :format, [format, level, msg, timestamp, metadata, config_metadata])
   end
 
   @doc false
   def handle_info(_msg, state) do
-	{:ok, state}
+    {:ok, state}
   end
 
   @doc false
   def terminate(_reason, _state) do
-	:ok
+    :ok
   end
 
   @doc false
   def code_change(_old, state, _extra) do
-	{:ok, state}
+    {:ok, state}
   end
-
 end

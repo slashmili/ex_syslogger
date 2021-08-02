@@ -26,7 +26,7 @@ defmodule ExSyslogger.JsonFormatter do
   It uses Logger.Formatter.
   """
   @spec compile({atom, atom}) :: {atom, atom}
-  @spec compile(binary | nil) :: [Logger.Formatter.pattern | binary]
+  @spec compile(binary | nil) :: [Logger.Formatter.pattern() | binary]
 
   defdelegate compile(str), to: Logger.Formatter
 
@@ -35,28 +35,37 @@ defmodule ExSyslogger.JsonFormatter do
 
   `config_metadata`: is the metadata that is set on the configuration e.g. `metadata: [:module, :line, :function]` to include `:module`, `:line` and `:function` keys. Can be set to `:all` to include all keys.
   """
-  @spec format({atom, atom} | [Logger.Formatter.pattern | binary],
-               Logger.level, Logger.message, Logger.Formatter.time,
-               Keyword.t, list(atom)) :: IO.chardata
+  @spec format(
+          {atom, atom} | [Logger.Formatter.pattern() | binary],
+          Logger.level(),
+          Logger.message(),
+          Logger.Formatter.time(),
+          Keyword.t(),
+          list(atom)
+        ) :: IO.chardata()
 
   def format(format, level, msg, timestamp, metadata, config_metadata) do
     case Code.ensure_loaded(Poison) do
-      {:error, _} -> throw :add_poison_to_your_deps
+      {:error, _} -> throw(:add_poison_to_your_deps)
       _ -> nil
     end
 
-    metadata = case config_metadata do
-      :all ->
-        metadata
-      keys when is_list(keys) ->
-        metadata |> Keyword.take(keys)
-      _ ->
-        []
-    end
+    metadata =
+      case config_metadata do
+        :all ->
+          metadata
 
-    msg_str = format
-              |> Logger.Formatter.format(level, msg, timestamp, metadata)
-              |> to_string()
+        keys when is_list(keys) ->
+          metadata |> Keyword.take(keys)
+
+        _ ->
+          []
+      end
+
+    msg_str =
+      format
+      |> Logger.Formatter.format(level, msg, timestamp, metadata)
+      |> to_string()
 
     log = %{level: level, message: msg_str, node: node()}
 
@@ -66,7 +75,6 @@ defmodule ExSyslogger.JsonFormatter do
     log_json
   end
 
-
   ##############################################################################
   #
   # Internal functions
@@ -75,7 +83,8 @@ defmodule ExSyslogger.JsonFormatter do
     log
   end
 
-  defp add_to_log({:initial_call, {mod, fun, arity}}, log) when is_atom(mod) and is_atom(fun) and is_integer(arity) do
+  defp add_to_log({:initial_call, {mod, fun, arity}}, log)
+       when is_atom(mod) and is_atom(fun) and is_integer(arity) do
     Map.put(log, :initial_call, Exception.format_mfa(mod, fun, arity))
   end
 
@@ -89,10 +98,12 @@ defmodule ExSyslogger.JsonFormatter do
   end
 
   defp add_to_log({key, atom}, log) when is_atom(atom) do
-    binary = case Atom.to_string(atom) do
-      "Elixir." <> rest -> rest
-      binary -> binary
-    end
+    binary =
+      case Atom.to_string(atom) do
+        "Elixir." <> rest -> rest
+        binary -> binary
+      end
+
     Map.put(log, key, binary)
   end
 
