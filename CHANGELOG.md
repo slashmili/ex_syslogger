@@ -2,6 +2,8 @@
 
 ### Changed
 - Breaking change: Replace Poison with Jason
+- Rename main branch from master to main
+- Setup GitHub Action workflow
 
 
 ## [1.5.2] - 2020-04-30
