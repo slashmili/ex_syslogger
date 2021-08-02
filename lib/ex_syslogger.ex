@@ -198,15 +198,14 @@ defmodule ExSyslogger do
   end
 
   @doc """
-  Ignore messages where the group leader is in a different node.
+  Handles a log event. Ignores the log event if the event level is less than the min log level.
+
+  Ignores messages where the group leader is in a different node.
   """
   def handle_event({_level, gl, _event}, config) when node(gl) != node() do
     {:ok, config}
   end
 
-  @doc """
-  Handles an log event. Ignores the log event if the event level is less than the min log level.
-  """
   def handle_event(
         {level, _gl, {Logger, msg, timestamp, metadata}},
         %{log: log, config: config} = state
