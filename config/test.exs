@@ -1,11 +1,11 @@
-use Mix.Config
+import Config
 
 config :logger,
   utc_log: true,
   truncate: 8192,
   sync_threshold: 40,
   discard_threshold_for_error_logger: 500,
-  compile_time_purge_level: :debug,
+  compile_time_purge_matching: [[level_lower_than: :debug]],
   backends: [
             {ExSyslogger, :ex_syslogger_error},
             {ExSyslogger, :ex_syslogger_debug},
@@ -14,12 +14,12 @@ config :logger,
 
 config :logger, :console,
   level: :error,
-  format: "$date $time [$level] $levelpad$node $metadata $message\n",
+  format: "$date $time [$level] $node $metadata $message\n",
   metadata: [:module, :line, :function]
 
 config :logger, :ex_syslogger_error,
   level: :error,
-  format: "$date $time [$level] $levelpad$node $metadata $message",
+  format: "$date $time [$level] $node $metadata $message",
   metadata: [:module, :line, :function],
   ident: "MyApplication Error",
   facility: :local0,
