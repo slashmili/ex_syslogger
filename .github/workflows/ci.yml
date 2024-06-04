@@ -13,12 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        otp: [22.x, 23.x, 24.x]
-        elixir: [1.10.x, 1.11.x]
+        otp: ['24.3.4.17', '25.3.2.12', '26.2.5']
+        elixir: ['1.15.8', '1.16.3']
     steps:
     - uses: actions/checkout@v2
     - name: Set up Elixir
-      uses: erlef/setup-elixir@885971a72ed1f9240973bd92ab57af8c1aa68f24
+      uses: erlef/setup-beam@v1
       with:
         otp-version: ${{matrix.otp}}
         elixir-version: ${{matrix.elixir}}
