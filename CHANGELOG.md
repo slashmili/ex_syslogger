@@ -1,3 +1,8 @@
+## [2.1.0] - 2024-07-24
+
+### Fixed
+- make it consistent with the console and logger_file_backend. #26
+
 ## [2.0.0] - 2021-08-02
 
 ### Changed
