@@ -1,4 +1,4 @@
-## [Unreleased]
+## [2.2.0] - 2026-05-25
 
 ### Fixed
 - Resolve Elixir 1.19 / Logger deprecation warnings:
