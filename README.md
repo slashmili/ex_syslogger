@@ -2,7 +2,6 @@
 ExSyslogger
 ======
 
-[![Build Status](https://travis-ci.org/slashmili/ex_syslogger.svg?branch=master)](https://travis-ci.org/slashmili/ex_syslogger)
 [![Hex.pm](https://img.shields.io/hexpm/v/ex_syslogger.svg)](https://hex.pm/packages/ex_syslogger)
 [![Docs](https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat)](https://hexdocs.pm/ex_syslogger/)
 [![Hex.pm](https://img.shields.io/hexpm/dt/ex_syslogger.svg)](https://hex.pm/packages/ex_syslogger)
