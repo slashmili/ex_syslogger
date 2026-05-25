@@ -93,7 +93,7 @@ defmodule ExSyslogger.JsonFormatter do
   end
 
   defp add_to_log({key, ref}, log) when is_reference(ref) do
-    '#Ref' ++ rest = :erlang.ref_to_list(ref)
+    ~c"#Ref" ++ rest = :erlang.ref_to_list(ref)
     Map.put(log, key, List.to_string(rest))
   end
 

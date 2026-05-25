@@ -10,6 +10,9 @@ defmodule ExsyslogTest do
     info_log = "info log #{random_str()}"
     Logger.info(info_log)
 
+    warning_log = "warning log #{random_str()}"
+    Logger.warning(warning_log)
+
     error_log = "error log #{random_str()}"
     Logger.error(error_log)
   end

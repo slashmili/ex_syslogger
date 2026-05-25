@@ -1,3 +1,11 @@
+## [Unreleased]
+
+### Fixed
+- Resolve Elixir 1.19 / Logger deprecation warnings:
+  - Normalize the legacy `:warn` level to `:warning` before it reaches `Logger.compare_levels/2`, which was emitting a deprecation warning on every warning-level log.
+  - Remove the deprecated `$levelpad` token from the default format pattern, docs, and example configs.
+  - Replace the single-quoted `'#Ref'` charlist with the `~c"#Ref"` sigil in the JSON formatter.
+
 ## [2.1.0] - 2024-07-24
 
 ### Fixed

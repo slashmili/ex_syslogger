@@ -77,7 +77,7 @@ You might notice that instead of just passing the Module name, we're passing a t
 ```
 config :logger, :ex_syslogger_error,
   level: :error,
-  format: "$date $time [$level] $levelpad$node $metadata $message",
+  format: "$date $time [$level] $node $metadata $message",
   metadata: [:module, :line, :function],
   ident: "MyApplication",
   facility: :local0,
@@ -104,7 +104,7 @@ config :logger, :ex_syslogger_json,
 ### Backend configuration properties
 
 * __level__ (optional): the logging level. It defaults to `:info`
-* __format__ (optional): Same as `:console` backend ([Logger.Formatter](http://elixir-lang.org/docs/stable/logger/)). It defaults to `"\n$date $time [$level] $levelpad$node $metadata $message\n"`
+* __format__ (optional): Same as `:console` backend ([Logger.Formatter](http://elixir-lang.org/docs/stable/logger/)). It defaults to `"\n$date $time [$level] $node $metadata $message\n"`
 * __formatter__ (optional): Formatter that will be used to format the log. It default to Logger.Formatter
 * __metadata__ (optional): Same as `:console` backend [Logger.Formatter](http://elixir-lang.org/docs/stable/logger/). It defaults to `[]`
 * __ident__ (optional): A string that's prepended to every message, and is typically set to the app name. It defaults to `"Elixir"`
